@@ -1,7 +1,8 @@
 import sys
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
                              QPushButton, QListWidget, QFileDialog, QMessageBox)
-from PyQt5.QtGui import QKeySequence
+from PyQt5.QtGui import QFont, QKeySequence
+import os
 
 class TextEditor(QMainWindow):
     def __init__(self):
@@ -22,6 +23,9 @@ class TextEditor(QMainWindow):
         # 列表控件用于显示文本行
         self.list_widget = QListWidget()
         self.list_widget.setSelectionMode(QListWidget.SingleSelection)
+        # 设置默认字体为 JetBrains Mono，大小为 9
+        font = QFont("JetBrains Mono", 9)
+        self.list_widget.setFont(font)
         self.layout.addWidget(self.list_widget)
 
         # 按钮布局
@@ -35,7 +39,7 @@ class TextEditor(QMainWindow):
         self.btn_cut = QPushButton("剪切")
         self.btn_paste = QPushButton("粘贴")
         self.btn_save = QPushButton("保存")
-        self.btn_undo = QPushButton("撤销")  # 新增撤销按钮
+        self.btn_undo = QPushButton("撤销")
 
         self.button_layout.addWidget(self.btn_load)
         self.button_layout.addWidget(self.btn_add)
@@ -43,16 +47,16 @@ class TextEditor(QMainWindow):
         self.button_layout.addWidget(self.btn_cut)
         self.button_layout.addWidget(self.btn_paste)
         self.button_layout.addWidget(self.btn_save)
-        self.button_layout.addWidget(self.btn_undo)  # 添加到按钮布局
+        self.button_layout.addWidget(self.btn_undo)
 
         # 设置快捷键
-        self.btn_load.setShortcut('L')  # L键绑定“加载”
-        self.btn_add.setShortcut(' ')   # 空格键绑定“+”
-        self.btn_sub.setShortcut('C')   # C键绑定“-”
-        self.btn_cut.setShortcut('X')   # X键绑定“剪切”
-        self.btn_paste.setShortcut('V')  # V键绑定“粘贴”
-        self.btn_save.setShortcut('S')   # S键绑定“保存”
-        self.btn_undo.setShortcut('Z')   # Z键绑定“撤销”
+        self.btn_load.setShortcut('L')
+        self.btn_add.setShortcut(' ')
+        self.btn_sub.setShortcut('C')
+        self.btn_cut.setShortcut('X')
+        self.btn_paste.setShortcut('V')
+        self.btn_save.setShortcut('S')
+        self.btn_undo.setShortcut('Z')
 
         # 连接按钮到功能
         self.btn_load.clicked.connect(self.load_file)
@@ -61,14 +65,13 @@ class TextEditor(QMainWindow):
         self.btn_cut.clicked.connect(self.cut)
         self.btn_paste.clicked.connect(self.paste)
         self.btn_save.clicked.connect(self.save_file)
-        self.btn_undo.clicked.connect(self.undo)  # 连接撤销功能
+        self.btn_undo.clicked.connect(self.undo)
 
     def load_file(self):
         file_name, _ = QFileDialog.getOpenFileName(self, "打开文本文件", "npc/heroes", "文本文件 (*.txt)")
         if file_name:
             try:
                 with open(file_name, 'r', encoding='utf-8') as file:
-                    # 直接读取每行，保留原始内容（包括缩进）
                     self.lines = [line for line in file.readlines()]
                 self.list_widget.clear()
                 self.list_widget.addItems(self.lines)
@@ -81,7 +84,6 @@ class TextEditor(QMainWindow):
         if selected_items:
             index = self.list_widget.row(selected_items[0])
             old_text = selected_items[0].text()
-            print(old_text.split('"'))
             tab = old_text.split('"')[0]
             ab_name = old_text.split('"')[1]
             ab_value = old_text.split('"')[3]
@@ -113,7 +115,6 @@ class TextEditor(QMainWindow):
         if selected_items:
             index = self.list_widget.row(selected_items[0])
             old_text = selected_items[0].text()
-            print(old_text.split('"'))
             tab = old_text.split('"')[0]
             ab_name = old_text.split('"')[1]
             ab_value = old_text.split('"')[3]
@@ -157,12 +158,15 @@ class TextEditor(QMainWindow):
             QMessageBox.warning(self, "警告", "剪贴板为空！")
 
     def save_file(self):
-        file_name, _ = QFileDialog.getSaveFileName(self, "保存文本文件", fr"vpk/pak01_dir/scripts/npc/heroes", "文本文件 (*.txt)")
+        # 使用 vpk/pak01_dir/scripts/npc/heroes 作为默认路径，self.file_name 作为默认文件名
+        default_path = "vpk/pak01_dir/scripts/npc/heroes"
+        default_file = self.file_name if self.file_name else ""
+        file_name, _ = QFileDialog.getSaveFileName(self, "保存文本文件", os.path.join(default_path, os.path.basename(default_file)), "文本文件 (*.txt)")
         if file_name:
             try:
                 with open(file_name, 'w', encoding='utf-8') as file:
-                    # 保存时每行添加换行符
                     file.write('\n'.join(self.lines) + '\n')
+                self.file_name = file_name  # 更新 self.file_name
                 QMessageBox.information(self, "成功", "文件保存成功！")
             except Exception as e:
                 QMessageBox.critical(self, "错误", f"无法保存文件：{str(e)}")
