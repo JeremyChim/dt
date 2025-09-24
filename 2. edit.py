@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
-                             QPushButton, QListWidget, QFileDialog, QMessageBox,QListWidgetItem)
+                             QPushButton, QListWidget, QFileDialog, QMessageBox, QListWidgetItem)
 from PyQt5.QtGui import QFont, QKeySequence
 from PyQt5.QtCore import Qt
 import os
@@ -81,7 +81,7 @@ class TextEditor(QMainWindow):
                 self.list_widget.clear()
                 for line in self.lines:
                     item = QListWidgetItem(line.rstrip('\n'))
-                    item.setFlags(item.flags() | Qt.ItemIsEditable)  # 确保每行可编辑
+                    item.setFlags(item.flags() | Qt.ItemIsEditable)
                     self.list_widget.addItem(item)
                 self.file_name = file_name
             except Exception as e:
@@ -164,10 +164,14 @@ class TextEditor(QMainWindow):
         if self.clipboard:
             selected_items = self.list_widget.selectedItems()
             index = self.list_widget.row(selected_items[0]) + 1 if selected_items else len(self.lines)
-            self.lines.insert(index, self.clipboard)
-            item = QListWidgetItem(self.clipboard.rstrip('\n'))
-            item.setFlags(item.flags() | Qt.ItemIsEditable)
-            self.list_widget.insertItem(index, item)
+            # 将 clipboard 的每一行增加一个制表符 \t
+            indented_lines = ['\t' + line.rstrip('\n') + '\n' for line in self.clipboard.splitlines()]
+            for line in indented_lines:
+                self.lines.insert(index, line)
+                item = QListWidgetItem(line.rstrip('\n'))
+                item.setFlags(item.flags() | Qt.ItemIsEditable)
+                self.list_widget.insertItem(index, item)
+                index += 1
         else:
             QMessageBox.warning(self, "警告", "剪贴板为空！")
 
@@ -202,8 +206,8 @@ class TextEditor(QMainWindow):
     def on_item_changed(self, item):
         index = self.list_widget.row(item)
         old_text = self.lines[index]
-        new_text = item.text() + '\n'  # 添加换行符以保持文件格式
-        self.undoboard = old_text  # 保存旧内容以支持撤销
+        new_text = item.text() + '\n'
+        self.undoboard = old_text
         self.lines[index] = new_text
 
 if __name__ == '__main__':
