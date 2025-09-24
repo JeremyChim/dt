@@ -29,25 +29,25 @@ class TextEditor(QMainWindow):
 
         # 按钮
         self.btn_load = QPushButton("加载文件")
-        self.btn_print = QPushButton("打印选中行")
-        self.btn_replace = QPushButton("替换选中行")
-        self.btn_cut = QPushButton("剪切选中行")
+        self.btn_add = QPushButton("+")
+        self.btn_sub = QPushButton("-")
+        self.btn_cut = QPushButton("剪切")
         self.btn_paste = QPushButton("粘贴")
         self.btn_save = QPushButton("保存文件")
 
         self.button_layout.addWidget(self.btn_load)
-        self.button_layout.addWidget(self.btn_print)
-        self.button_layout.addWidget(self.btn_replace)
+        self.button_layout.addWidget(self.btn_add)
+        self.button_layout.addWidget(self.btn_sub)
         self.button_layout.addWidget(self.btn_cut)
         self.button_layout.addWidget(self.btn_paste)
         self.button_layout.addWidget(self.btn_save)
 
         # 连接按钮到功能
         self.btn_load.clicked.connect(self.load_file)
-        self.btn_print.clicked.connect(self.print_selected)
-        self.btn_replace.clicked.connect(self.replace_selected)
-        self.btn_cut.clicked.connect(self.cut_selected)
-        self.btn_paste.clicked.connect(self.paste_line)
+        self.btn_add.clicked.connect(self.add)
+        self.btn_sub.clicked.connect(self.sub)
+        self.btn_cut.clicked.connect(self.cut)
+        self.btn_paste.clicked.connect(self.paste)
         self.btn_save.clicked.connect(self.save_file)
 
     def load_file(self):
@@ -62,25 +62,55 @@ class TextEditor(QMainWindow):
             except Exception as e:
                 QMessageBox.critical(self, "错误", f"无法加载文件：{str(e)}")
 
-    def print_selected(self):
-        selected_items = self.list_widget.selectedItems()
-        if selected_items:
-            print(selected_items[0].text())
-        else:
-            QMessageBox.warning(self, "警告", "未选中任何行！")
-
-    def replace_selected(self):
+    def add(self):
         selected_items = self.list_widget.selectedItems()
         if selected_items:
             index = self.list_widget.row(selected_items[0])
-            new_text = selected_items[0].text() + "_替换"
+            old_text = selected_items[0].text()
+            tab = old_text.split('"')[0]
+            ab_name = old_text.split('"')[1]
+            val = '+50%'
+            if ab_name == "value":
+                sa = f'{tab}"special_bonus_shard"\t\t"{val}"\n'
+                sp = f'{tab}"special_bonus_scepter"\t\t"{val}"\n'
+                new_text = old_text + sa + sp
+            else:
+                start = tab + '{\n'
+                sa = f'{tab}\t"special_bonus_shard"\t\t"{val}"\n'
+                sp = f'{tab}\t"special_bonus_scepter"\t\t"{val}"\n'
+                end = tab + '}\n'
+                new_text = old_text + start + sa + sp + end
             self.lines[index] = new_text
             self.list_widget.takeItem(index)
             self.list_widget.insertItem(index, new_text)
         else:
             QMessageBox.warning(self, "警告", "未选中任何行！")
 
-    def cut_selected(self):
+    def sub(self):
+        selected_items = self.list_widget.selectedItems()
+        if selected_items:
+            index = self.list_widget.row(selected_items[0])
+            old_text = selected_items[0].text()
+            tab = old_text.split('"')[0]
+            ab_name = old_text.split('"')[1]
+            val = '-25%'
+            if ab_name == "value":
+                sa = f'{tab}"special_bonus_shard"\t\t"{val}"\n'
+                sp = f'{tab}"special_bonus_scepter"\t\t"{val}"\n'
+                new_text = old_text + sa + sp
+            else:
+                start = tab + '{\n'
+                sa = f'{tab}\t"special_bonus_shard"\t\t"{val}"\n'
+                sp = f'{tab}\t"special_bonus_scepter"\t\t"{val}"\n'
+                end = tab + '}\n'
+                new_text = old_text + start + sa + sp + end
+            self.lines[index] = new_text
+            self.list_widget.takeItem(index)
+            self.list_widget.insertItem(index, new_text)
+        else:
+            QMessageBox.warning(self, "警告", "未选中任何行！")
+
+    def cut(self):
         selected_items = self.list_widget.selectedItems()
         if selected_items:
             index = self.list_widget.row(selected_items[0])
@@ -90,7 +120,7 @@ class TextEditor(QMainWindow):
         else:
             QMessageBox.warning(self, "警告", "未选中任何行！")
 
-    def paste_line(self):
+    def paste(self):
         if self.clipboard:
             selected_items = self.list_widget.selectedItems()
             index = self.list_widget.row(selected_items[0]) + 1 if selected_items else len(self.lines)
