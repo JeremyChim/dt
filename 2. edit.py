@@ -9,6 +9,7 @@ class TextEditor(QMainWindow):
         self.setWindowTitle("文本文件编辑器")
         self.setGeometry(100, 100, 1200, 800)
         self.lines = []
+        self.file_name = ""
         self.clipboard = ""
         self.undoboard = ""
 
@@ -63,7 +64,7 @@ class TextEditor(QMainWindow):
         self.btn_undo.clicked.connect(self.undo)  # 连接撤销功能
 
     def load_file(self):
-        file_name, _ = QFileDialog.getOpenFileName(self, "打开文本文件", "", "文本文件 (*.txt)")
+        file_name, _ = QFileDialog.getOpenFileName(self, "打开文本文件", "npc/heroes", "文本文件 (*.txt)")
         if file_name:
             try:
                 with open(file_name, 'r', encoding='utf-8') as file:
@@ -71,6 +72,7 @@ class TextEditor(QMainWindow):
                     self.lines = [line for line in file.readlines()]
                 self.list_widget.clear()
                 self.list_widget.addItems(self.lines)
+                self.file_name = file_name
             except Exception as e:
                 QMessageBox.critical(self, "错误", f"无法加载文件：{str(e)}")
 
@@ -155,7 +157,7 @@ class TextEditor(QMainWindow):
             QMessageBox.warning(self, "警告", "剪贴板为空！")
 
     def save_file(self):
-        file_name, _ = QFileDialog.getSaveFileName(self, "保存文本文件", "", "文本文件 (*.txt)")
+        file_name, _ = QFileDialog.getSaveFileName(self, "保存文本文件", fr"vpk/pak01_dir/scripts/npc/heroes", "文本文件 (*.txt)")
         if file_name:
             try:
                 with open(file_name, 'w', encoding='utf-8') as file:
