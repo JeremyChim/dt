@@ -11,4 +11,4 @@ shutil.move(r"C:\Users\Jeremy\Desktop\dt\vpk\pak01_dir.vpk", r"C:\Users\Jeremy\D
 # bot指令
 pyperclip.copy("sv_cheats 1; script_reload_code bots/fretbots")
 
-time.sleep(3)
+time.sleep(2)
