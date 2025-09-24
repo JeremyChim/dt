@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
                              QPushButton, QListWidget, QFileDialog, QMessageBox)
-
+from PyQt5.QtGui import QKeySequence
 
 class TextEditor(QMainWindow):
     def __init__(self):
@@ -10,6 +10,7 @@ class TextEditor(QMainWindow):
         self.setGeometry(100, 100, 1200, 800)
         self.lines = []
         self.clipboard = ""
+        self.undoboard = ""
 
         # 主窗口部件和布局
         self.main_widget = QWidget()
@@ -33,6 +34,7 @@ class TextEditor(QMainWindow):
         self.btn_cut = QPushButton("剪切")
         self.btn_paste = QPushButton("粘贴")
         self.btn_save = QPushButton("保存")
+        self.btn_undo = QPushButton("撤销")  # 新增撤销按钮
 
         self.button_layout.addWidget(self.btn_load)
         self.button_layout.addWidget(self.btn_add)
@@ -40,6 +42,16 @@ class TextEditor(QMainWindow):
         self.button_layout.addWidget(self.btn_cut)
         self.button_layout.addWidget(self.btn_paste)
         self.button_layout.addWidget(self.btn_save)
+        self.button_layout.addWidget(self.btn_undo)  # 添加到按钮布局
+
+        # 设置快捷键
+        self.btn_load.setShortcut('L')  # L键绑定“加载”
+        self.btn_add.setShortcut(' ')   # 空格键绑定“+”
+        self.btn_sub.setShortcut('C')   # C键绑定“-”
+        self.btn_cut.setShortcut('X')   # X键绑定“剪切”
+        self.btn_paste.setShortcut('V')  # V键绑定“粘贴”
+        self.btn_save.setShortcut('S')   # S键绑定“保存”
+        self.btn_undo.setShortcut('Z')   # Z键绑定“撤销”
 
         # 连接按钮到功能
         self.btn_load.clicked.connect(self.load_file)
@@ -48,6 +60,7 @@ class TextEditor(QMainWindow):
         self.btn_cut.clicked.connect(self.cut)
         self.btn_paste.clicked.connect(self.paste)
         self.btn_save.clicked.connect(self.save_file)
+        self.btn_undo.clicked.connect(self.undo)  # 连接撤销功能
 
     def load_file(self):
         file_name, _ = QFileDialog.getOpenFileName(self, "打开文本文件", "", "文本文件 (*.txt)")
@@ -85,10 +98,11 @@ class TextEditor(QMainWindow):
                 sa = f'{tab}\t"special_bonus_shard"\t\t"{val}"\n'
                 sp = f'{tab}\t"special_bonus_scepter"\t\t"{val}"\n'
                 e = tab + '}\n'
-                new_text = o + s + va+ sa + sp + e
+                new_text = o + s + va + sa + sp + e
             self.lines[index] = new_text
             self.list_widget.takeItem(index)
             self.list_widget.insertItem(index, new_text)
+            self.undoboard = old_text
         else:
             QMessageBox.warning(self, "警告", "未选中任何行！")
 
@@ -113,10 +127,11 @@ class TextEditor(QMainWindow):
                 sa = f'{tab}\t"special_bonus_shard"\t\t"{val}"\n'
                 sp = f'{tab}\t"special_bonus_scepter"\t\t"{val}"\n'
                 e = tab + '}\n'
-                new_text = o + s + va+ sa + sp + e
+                new_text = o + s + va + sa + sp + e
             self.lines[index] = new_text
             self.list_widget.takeItem(index)
             self.list_widget.insertItem(index, new_text)
+            self.undoboard = old_text
         else:
             QMessageBox.warning(self, "警告", "未选中任何行！")
 
@@ -150,6 +165,18 @@ class TextEditor(QMainWindow):
             except Exception as e:
                 QMessageBox.critical(self, "错误", f"无法保存文件：{str(e)}")
 
+    def undo(self):
+        if self.undoboard:
+            selected_items = self.list_widget.selectedItems()
+            if selected_items:
+                index = self.list_widget.row(selected_items[0])
+                self.lines[index] = self.undoboard
+                self.list_widget.takeItem(index)
+                self.list_widget.insertItem(index, self.undoboard)
+            else:
+                QMessageBox.warning(self, "警告", "未选中任何行！")
+        else:
+            QMessageBox.warning(self, "警告", "无撤销内容！")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
