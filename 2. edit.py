@@ -1,7 +1,6 @@
 import sys
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
                              QPushButton, QListWidget, QFileDialog, QMessageBox)
-from PyQt5.QtCore import Qt
 
 
 class TextEditor(QMainWindow):
