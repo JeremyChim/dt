@@ -1,7 +1,8 @@
 import sys
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
-                             QPushButton, QListWidget, QFileDialog, QMessageBox)
+                             QPushButton, QListWidget, QFileDialog, QMessageBox,QListWidgetItem)
 from PyQt5.QtGui import QFont, QKeySequence
+from PyQt5.QtCore import Qt
 import os
 
 class TextEditor(QMainWindow):
@@ -26,6 +27,10 @@ class TextEditor(QMainWindow):
         # 设置默认字体为 JetBrains Mono，大小为 9
         font = QFont("JetBrains Mono", 9)
         self.list_widget.setFont(font)
+        # 启用双击编辑
+        self.list_widget.setEditTriggers(QListWidget.DoubleClicked)
+        # 连接 itemChanged 信号以捕获编辑完成
+        self.list_widget.itemChanged.connect(self.on_item_changed)
         self.layout.addWidget(self.list_widget)
 
         # 按钮布局
@@ -74,7 +79,10 @@ class TextEditor(QMainWindow):
                 with open(file_name, 'r', encoding='utf-8') as file:
                     self.lines = [line for line in file.readlines()]
                 self.list_widget.clear()
-                self.list_widget.addItems(self.lines)
+                for line in self.lines:
+                    item = QListWidgetItem(line.rstrip('\n'))
+                    item.setFlags(item.flags() | Qt.ItemIsEditable)  # 确保每行可编辑
+                    self.list_widget.addItem(item)
                 self.file_name = file_name
             except Exception as e:
                 QMessageBox.critical(self, "错误", f"无法加载文件：{str(e)}")
@@ -83,7 +91,7 @@ class TextEditor(QMainWindow):
         selected_items = self.list_widget.selectedItems()
         if selected_items:
             index = self.list_widget.row(selected_items[0])
-            old_text = selected_items[0].text()
+            old_text = self.lines[index]
             tab = old_text.split('"')[0]
             ab_name = old_text.split('"')[1]
             ab_value = old_text.split('"')[3]
@@ -104,8 +112,10 @@ class TextEditor(QMainWindow):
                 e = tab + '}\n'
                 new_text = o + s + va + sa + sp + e
             self.lines[index] = new_text
+            item = QListWidgetItem(new_text.rstrip('\n'))
+            item.setFlags(item.flags() | Qt.ItemIsEditable)
             self.list_widget.takeItem(index)
-            self.list_widget.insertItem(index, new_text)
+            self.list_widget.insertItem(index, item)
             self.undoboard = old_text
         else:
             QMessageBox.warning(self, "警告", "未选中任何行！")
@@ -114,7 +124,7 @@ class TextEditor(QMainWindow):
         selected_items = self.list_widget.selectedItems()
         if selected_items:
             index = self.list_widget.row(selected_items[0])
-            old_text = selected_items[0].text()
+            old_text = self.lines[index]
             tab = old_text.split('"')[0]
             ab_name = old_text.split('"')[1]
             ab_value = old_text.split('"')[3]
@@ -132,8 +142,10 @@ class TextEditor(QMainWindow):
                 e = tab + '}\n'
                 new_text = o + s + va + sa + sp + e
             self.lines[index] = new_text
+            item = QListWidgetItem(new_text.rstrip('\n'))
+            item.setFlags(item.flags() | Qt.ItemIsEditable)
             self.list_widget.takeItem(index)
-            self.list_widget.insertItem(index, new_text)
+            self.list_widget.insertItem(index, item)
             self.undoboard = old_text
         else:
             QMessageBox.warning(self, "警告", "未选中任何行！")
@@ -153,12 +165,13 @@ class TextEditor(QMainWindow):
             selected_items = self.list_widget.selectedItems()
             index = self.list_widget.row(selected_items[0]) + 1 if selected_items else len(self.lines)
             self.lines.insert(index, self.clipboard)
-            self.list_widget.insertItem(index, self.clipboard)
+            item = QListWidgetItem(self.clipboard.rstrip('\n'))
+            item.setFlags(item.flags() | Qt.ItemIsEditable)
+            self.list_widget.insertItem(index, item)
         else:
             QMessageBox.warning(self, "警告", "剪贴板为空！")
 
     def save_file(self):
-        # 使用 vpk/pak01_dir/scripts/npc/heroes 作为默认路径，self.file_name 作为默认文件名
         default_path = "vpk/pak01_dir/scripts/npc/heroes"
         default_file = self.file_name if self.file_name else ""
         file_name, _ = QFileDialog.getSaveFileName(self, "保存文本文件", os.path.join(default_path, os.path.basename(default_file)), "文本文件 (*.txt)")
@@ -166,7 +179,7 @@ class TextEditor(QMainWindow):
             try:
                 with open(file_name, 'w', encoding='utf-8') as file:
                     file.write('\n'.join(self.lines) + '\n')
-                self.file_name = file_name  # 更新 self.file_name
+                self.file_name = file_name
                 QMessageBox.information(self, "成功", "文件保存成功！")
             except Exception as e:
                 QMessageBox.critical(self, "错误", f"无法保存文件：{str(e)}")
@@ -177,12 +190,21 @@ class TextEditor(QMainWindow):
             if selected_items:
                 index = self.list_widget.row(selected_items[0])
                 self.lines[index] = self.undoboard
+                item = QListWidgetItem(self.undoboard.rstrip('\n'))
+                item.setFlags(item.flags() | Qt.ItemIsEditable)
                 self.list_widget.takeItem(index)
-                self.list_widget.insertItem(index, self.undoboard)
+                self.list_widget.insertItem(index, item)
             else:
                 QMessageBox.warning(self, "警告", "未选中任何行！")
         else:
             QMessageBox.warning(self, "警告", "无撤销内容！")
+
+    def on_item_changed(self, item):
+        index = self.list_widget.row(item)
+        old_text = self.lines[index]
+        new_text = item.text() + '\n'  # 添加换行符以保持文件格式
+        self.undoboard = old_text  # 保存旧内容以支持撤销
+        self.lines[index] = new_text
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
