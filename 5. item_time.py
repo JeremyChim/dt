@@ -21,3 +21,5 @@ for i, line in enumerate(lines, 1):
 
 with open("vpk/pak01_dir/scripts/npc/neutral_items.txt", "w") as f:
     f.writelines(new_lines)
+
+input("...")

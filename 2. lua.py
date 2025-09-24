@@ -28,3 +28,5 @@ for i, line in enumerate(lines, 1):
 # 写入文件
 with open("general.lua", "w", encoding='utf-8') as f:
     f.writelines(new_lines)
+
+input("...")
