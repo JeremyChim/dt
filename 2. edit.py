@@ -8,7 +8,7 @@ class TextEditor(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("文本文件编辑器")
-        self.setGeometry(100, 100, 600, 400)
+        self.setGeometry(100, 100, 1200, 800)
         self.lines = []
         self.clipboard = ""
 
@@ -28,12 +28,12 @@ class TextEditor(QMainWindow):
         self.layout.addLayout(self.button_layout)
 
         # 按钮
-        self.btn_load = QPushButton("加载文件")
+        self.btn_load = QPushButton("加载")
         self.btn_add = QPushButton("+")
         self.btn_sub = QPushButton("-")
         self.btn_cut = QPushButton("剪切")
         self.btn_paste = QPushButton("粘贴")
-        self.btn_save = QPushButton("保存文件")
+        self.btn_save = QPushButton("保存")
 
         self.button_layout.addWidget(self.btn_load)
         self.button_layout.addWidget(self.btn_add)
@@ -67,19 +67,26 @@ class TextEditor(QMainWindow):
         if selected_items:
             index = self.list_widget.row(selected_items[0])
             old_text = selected_items[0].text()
+            print(old_text.split('"'))
             tab = old_text.split('"')[0]
             ab_name = old_text.split('"')[1]
-            val = '+50%'
+            ab_value = old_text.split('"')[3]
+            if 'Cooldown' in ab_name or 'ManaCost' in ab_name or 'CastPoint' in ab_name:
+                val = '-25%'
+            else:
+                val = '+50%'
             if ab_name == "value":
                 sa = f'{tab}"special_bonus_shard"\t\t"{val}"\n'
                 sp = f'{tab}"special_bonus_scepter"\t\t"{val}"\n'
                 new_text = old_text + sa + sp
             else:
-                start = tab + '{\n'
+                o = f'{tab}"{ab_name}"\n'
+                s = tab + '{\n'
+                va = f'{tab}\t"value"\t\t"{ab_value}"\n'
                 sa = f'{tab}\t"special_bonus_shard"\t\t"{val}"\n'
                 sp = f'{tab}\t"special_bonus_scepter"\t\t"{val}"\n'
-                end = tab + '}\n'
-                new_text = old_text + start + sa + sp + end
+                e = tab + '}\n'
+                new_text = o + s + va+ sa + sp + e
             self.lines[index] = new_text
             self.list_widget.takeItem(index)
             self.list_widget.insertItem(index, new_text)
@@ -91,19 +98,23 @@ class TextEditor(QMainWindow):
         if selected_items:
             index = self.list_widget.row(selected_items[0])
             old_text = selected_items[0].text()
+            print(old_text.split('"'))
             tab = old_text.split('"')[0]
             ab_name = old_text.split('"')[1]
+            ab_value = old_text.split('"')[3]
             val = '-25%'
             if ab_name == "value":
                 sa = f'{tab}"special_bonus_shard"\t\t"{val}"\n'
                 sp = f'{tab}"special_bonus_scepter"\t\t"{val}"\n'
                 new_text = old_text + sa + sp
             else:
-                start = tab + '{\n'
+                o = f'{tab}"{ab_name}"\n'
+                s = tab + '{\n'
+                va = f'{tab}\t"value"\t\t"{ab_value}"\n'
                 sa = f'{tab}\t"special_bonus_shard"\t\t"{val}"\n'
                 sp = f'{tab}\t"special_bonus_scepter"\t\t"{val}"\n'
-                end = tab + '}\n'
-                new_text = old_text + start + sa + sp + end
+                e = tab + '}\n'
+                new_text = o + s + va+ sa + sp + e
             self.lines[index] = new_text
             self.list_widget.takeItem(index)
             self.list_widget.insertItem(index, new_text)
