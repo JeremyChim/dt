@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
-                             QPushButton, QListWidget, QFileDialog, QMessageBox, QListWidgetItem)
+                             QPushButton, QListWidget, QFileDialog, QMessageBox, QShortcut, QListWidgetItem)
 from PyQt5.QtGui import QFont, QKeySequence
 from PyQt5.QtCore import Qt
 import os
@@ -23,7 +23,7 @@ class TextEditor(QMainWindow):
 
         # 列表控件用于显示文本行
         self.list_widget = QListWidget()
-        self.list_widget.setSelectionMode(QListWidget.ExtendedSelection)  # 支持多选
+        self.list_widget.setSelectionMode(QListWidget.ExtendedSelection)
         # 设置默认字体为 JetBrains Mono，大小为 9
         font = QFont("JetBrains Mono", 9)
         self.list_widget.setFont(font)
@@ -56,12 +56,14 @@ class TextEditor(QMainWindow):
 
         # 设置快捷键
         self.btn_load.setShortcut('L')
-        self.btn_add.setShortcut(' ')
         self.btn_sub.setShortcut('C')
-        self.btn_cut.setShortcut('X')
         self.btn_paste.setShortcut('V')
         self.btn_save.setShortcut('S')
         self.btn_undo.setShortcut('Z')
+
+        # 使用 QShortcut 绑定空格键和 X 键
+        QShortcut(QKeySequence(' '), self, self.add)
+        QShortcut(QKeySequence('X'), self, self.cut)
 
         # 连接按钮到功能
         self.btn_load.clicked.connect(self.load_file)
@@ -117,6 +119,8 @@ class TextEditor(QMainWindow):
             self.list_widget.takeItem(index)
             self.list_widget.insertItem(index, item)
             self.undoboard = old_text
+            # 恢复焦点和选中状态
+            self.list_widget.setCurrentRow(index)
         else:
             QMessageBox.warning(self, "警告", "未选中任何行！")
 
@@ -147,6 +151,8 @@ class TextEditor(QMainWindow):
             self.list_widget.takeItem(index)
             self.list_widget.insertItem(index, item)
             self.undoboard = old_text
+            # 恢复焦点和选中状态
+            self.list_widget.setCurrentRow(index)
         else:
             QMessageBox.warning(self, "警告", "未选中任何行！")
 
@@ -155,11 +161,15 @@ class TextEditor(QMainWindow):
         if selected_items:
             # 收集所有选中行的索引（从大到小排序以避免删除时的索引偏移）
             indices = sorted([self.list_widget.row(item) for item in selected_items], reverse=True)
-            self.clipboard = [self.lines[i] for i in indices]  # 存储多行到 clipboard
+            self.clipboard = [self.lines[i] for i in indices]
             # 从后向前删除行
             for index in indices:
                 self.lines.pop(index)
                 self.list_widget.takeItem(index)
+            # 恢复焦点到接近原位置的行（如果可能）
+            new_index = min(indices[-1], len(self.lines) - 1) if self.lines else -1
+            if new_index >= 0:
+                self.list_widget.setCurrentRow(new_index)
         else:
             QMessageBox.warning(self, "警告", "未选中任何行！")
 
@@ -177,6 +187,8 @@ class TextEditor(QMainWindow):
                 self.list_widget.insertItem(index, item)
                 index += 1
             self.clipboard = []  # 清空 clipboard
+            # 恢复焦点到第一行插入的位置
+            self.list_widget.setCurrentRow(index - len(indented_lines))
         else:
             QMessageBox.warning(self, "警告", "剪贴板为空！")
 
@@ -203,6 +215,8 @@ class TextEditor(QMainWindow):
                 item.setFlags(item.flags() | Qt.ItemIsEditable)
                 self.list_widget.takeItem(index)
                 self.list_widget.insertItem(index, item)
+                # 恢复焦点和选中状态
+                self.list_widget.setCurrentRow(index)
             else:
                 QMessageBox.warning(self, "警告", "未选中任何行！")
         else:
@@ -214,6 +228,8 @@ class TextEditor(QMainWindow):
         new_text = item.text() + '\n'
         self.undoboard = old_text
         self.lines[index] = new_text
+        # 恢复焦点和选中状态
+        self.list_widget.setCurrentRow(index)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
