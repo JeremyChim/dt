@@ -12,7 +12,7 @@ class TextEditor(QMainWindow):
         self.setGeometry(100, 100, 1200, 800)
         self.lines = []
         self.file_name = ""
-        self.clipboard = ""
+        self.clipboard = []
         self.undoboard = ""
 
         # 主窗口部件和布局
@@ -23,7 +23,7 @@ class TextEditor(QMainWindow):
 
         # 列表控件用于显示文本行
         self.list_widget = QListWidget()
-        self.list_widget.setSelectionMode(QListWidget.SingleSelection)
+        self.list_widget.setSelectionMode(QListWidget.ExtendedSelection)  # 支持多选
         # 设置默认字体为 JetBrains Mono，大小为 9
         font = QFont("JetBrains Mono", 9)
         self.list_widget.setFont(font)
@@ -153,10 +153,13 @@ class TextEditor(QMainWindow):
     def cut(self):
         selected_items = self.list_widget.selectedItems()
         if selected_items:
-            index = self.list_widget.row(selected_items[0])
-            self.clipboard = self.lines[index]
-            self.lines.pop(index)
-            self.list_widget.takeItem(index)
+            # 收集所有选中行的索引（从大到小排序以避免删除时的索引偏移）
+            indices = sorted([self.list_widget.row(item) for item in selected_items], reverse=True)
+            self.clipboard = [self.lines[i] for i in indices]  # 存储多行到 clipboard
+            # 从后向前删除行
+            for index in indices:
+                self.lines.pop(index)
+                self.list_widget.takeItem(index)
         else:
             QMessageBox.warning(self, "警告", "未选中任何行！")
 
@@ -164,14 +167,16 @@ class TextEditor(QMainWindow):
         if self.clipboard:
             selected_items = self.list_widget.selectedItems()
             index = self.list_widget.row(selected_items[0]) + 1 if selected_items else len(self.lines)
-            # 将 clipboard 的每一行增加一个制表符 \t
-            indented_lines = ['\t' + line.rstrip('\n') + '\n' for line in self.clipboard.splitlines()]
+            # 为每行添加制表符 \t
+            indented_lines = ['\t' + line.rstrip('\n') + '\n' for line in self.clipboard]
+            # 插入所有行
             for line in indented_lines:
                 self.lines.insert(index, line)
                 item = QListWidgetItem(line.rstrip('\n'))
                 item.setFlags(item.flags() | Qt.ItemIsEditable)
                 self.list_widget.insertItem(index, item)
                 index += 1
+            self.clipboard = []  # 清空 clipboard
         else:
             QMessageBox.warning(self, "警告", "剪贴板为空！")
 
