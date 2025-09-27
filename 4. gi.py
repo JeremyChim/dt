@@ -1,3 +1,4 @@
+# reset = True
 reset = False  # 是否重置
 path = r"E:\GAME\steamapps\common\dota 2 beta\game\dota\gameinfo_branchspecific.gi"
 

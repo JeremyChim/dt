@@ -1,5 +1,6 @@
-path = r"E:\GAME\steamapps\common\dota 2 beta\game\dota\scripts\vscripts\game\Customize\general.lua"
+# reset = True
 reset = False
+path = r"E:\GAME\steamapps\common\dota 2 beta\game\dota\scripts\vscripts\game\Customize\general.lua"
 friend = ["nevermore", "earthshaker", "shadow_demon", "pugna"]  # 队友列表
 enemy = ["medusa", "pangolier", "magnataur", "disruptor", "naga_siren"]  # 敌人列表
 
