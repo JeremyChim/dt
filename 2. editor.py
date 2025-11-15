@@ -187,7 +187,7 @@ class Editor(QMainWindow, Ui_MainWindow):
                     elif va == 2:
                         x = x.replace(expand_per, '+25%')
                     elif va == 3:
-                        x = x.replace(expand_per, '+33%')
+                        x = x.replace(expand_per, '+50%')
                     elif va == 4:
                         x = x.replace(expand_per, '+5')
                     elif va == 5:
@@ -195,7 +195,7 @@ class Editor(QMainWindow, Ui_MainWindow):
                     elif va == 6:
                         x = x.replace(expand_per, '+500')
                     elif va == 7:
-                        x = x.replace(expand_per, '+75%')
+                        x = x.replace(expand_per, '+1000')
                     elif va == 9:
                         x = x.replace(expand_per, '+100%')
                     elif va == 0:
