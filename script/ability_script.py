@@ -1,11 +1,12 @@
 import pyperclip
 
-expand_per = '+50%'
+expand_per = '+25%'
+expand_per2 = '+50%'
 
 def update_value(old_ability):
     sap = ('[tab]"[ab_name]"\t\t\t\t\t\t"[ab_val]"\n'
            f'[tab]"special_bonus_shard"\t\t"{expand_per}"\n'
-           f'[tab]"special_bonus_scepter"\t\t"{expand_per}"\n')
+           f'[tab]"special_bonus_scepter"\t\t"{expand_per2}"\n')
     ability_list = old_ability.split('"')
     new_ability = (sap.replace('[tab]', ability_list[0])
                    .replace('[ab_name]', ability_list[1])
@@ -18,7 +19,7 @@ def update_value_more(old_ability):
            '[tab]{\n'
            '[tab]\t"value"\t\t\t\t\t\t"[ab_val]"\n'
            f'[tab]\t"special_bonus_shard"\t\t"{expand_per}"\n'
-           f'[tab]\t"special_bonus_scepter"\t\t"{expand_per}"\n'
+           f'[tab]\t"special_bonus_scepter"\t\t"{expand_per2}"\n'
            '[tab]}\n')
     ability_list = old_ability.split('"')
     new_ability = (sap.replace('[tab]', ability_list[0])
@@ -79,6 +80,7 @@ if __name__ == '__main__':
     print('"special_bonus_scepter"		"+50%"')
     print('"AbilityCharges"                 "1"')
     print('"AbilityChargeRestoreTime"       "10"')
+    print('ex: "ab"       "10 20 30 40"')
     print('')
 
     while True:
