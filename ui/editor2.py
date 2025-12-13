@@ -127,7 +127,7 @@ class Ui_Form(object):
         self.LoadBtn.setText(_translate("Form", "加载文件(L)"))
         self.ReloadBtn.setText(_translate("Form", "重载文件(R)"))
         self.SaveBtn.setText(_translate("Form", "保存文件(S)"))
-        self.SaveAsBtn.setText(_translate("Form", "另存文件(F2)"))
+        self.SaveAsBtn.setText(_translate("Form", "另存文件(A)"))
         self.OpenBtn.setText(_translate("Form", "打开文件(O)"))
         self.Status.setText(_translate("Form", "状态栏：信息"))
         self.pushButton_19.setText(_translate("Form", "魔晶"))

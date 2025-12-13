@@ -20,6 +20,12 @@ class Editor(QWidget, Ui_Form):
         self.SaveAsBtn.clicked.connect(self.save_as)
         self.OpenBtn.clicked.connect(self.open_file)
 
+        self.LoadBtn.setShortcut('L')
+        self.ReloadBtn.setShortcut('R')
+        self.SaveBtn.setShortcut('S')
+        self.SaveAsBtn.setShortcut('A')
+        self.OpenBtn.setShortcut('O')
+
     def load_file(self):
         try:
             file_path, _ = QFileDialog.getOpenFileName(self, "选择文件", "npc/heroes", "文本文件 (*.txt);;所有文件 (*)")

@@ -50,7 +50,7 @@
      <item>
       <widget class="QPushButton" name="SaveAsBtn">
        <property name="text">
-        <string>另存文件(F2)</string>
+        <string>另存文件(A)</string>
        </property>
       </widget>
      </item>
