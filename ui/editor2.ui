@@ -22,7 +22,7 @@
      <item>
       <widget class="QPushButton" name="TopBtn">
        <property name="text">
-        <string>置顶窗口(T)</string>
+        <string>置顶窗口</string>
        </property>
       </widget>
      </item>

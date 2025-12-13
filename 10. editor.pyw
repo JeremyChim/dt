@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QFileDialog
-from PyQt5.QtCore import QStringListModel
+from PyQt5.QtCore import QStringListModel, Qt
 from ui.editor2 import Ui_Form
 
 import os
@@ -7,6 +7,7 @@ import os
 
 class Editor(QWidget, Ui_Form):
     def __init__(self, file_path=None):
+        self.is_top = False
         self.file_path = file_path
         super().__init__()
         self.setupUi(self)
@@ -14,6 +15,7 @@ class Editor(QWidget, Ui_Form):
         self.reload_file()
 
     def init(self):
+        self.TopBtn.clicked.connect(self.set_top)
         self.LoadBtn.clicked.connect(self.load_file)
         self.ReloadBtn.clicked.connect(self.reload_file)
         self.SaveBtn.clicked.connect(self.save_file)
@@ -25,6 +27,16 @@ class Editor(QWidget, Ui_Form):
         self.SaveBtn.setShortcut('S')
         self.SaveAsBtn.setShortcut('A')
         self.OpenBtn.setShortcut('O')
+
+    def set_top(self):
+        self.is_top = not self.is_top
+        if self.is_top:
+            self.setWindowFlag(Qt.WindowStaysOnTopHint, True)
+            self.TopBtn.setText("取消置顶")
+        else:
+            self.setWindowFlag(Qt.WindowStaysOnTopHint, False)
+            self.TopBtn.setText("置顶窗口")
+        self.show()
 
     def load_file(self):
         try:

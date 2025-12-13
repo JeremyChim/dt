@@ -123,7 +123,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.TopBtn.setText(_translate("Form", "置顶窗口(T)"))
+        self.TopBtn.setText(_translate("Form", "置顶窗口"))
         self.LoadBtn.setText(_translate("Form", "加载文件(L)"))
         self.ReloadBtn.setText(_translate("Form", "重载文件(R)"))
         self.SaveBtn.setText(_translate("Form", "保存文件(S)"))
