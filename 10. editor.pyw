@@ -1,5 +1,7 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QFileDialog
 from PyQt5.QtCore import QStringListModel, Qt
+from sympy import content
+
 from ui.editor2 import Ui_Form
 
 import os
@@ -9,6 +11,8 @@ class Editor(QWidget, Ui_Form):
     def __init__(self, file_path=None):
         self.is_top = False
         self.file_path = file_path
+        self.cut_board = []
+        self.undo_board = None
         super().__init__()
         self.setupUi(self)
         self.init()
@@ -27,6 +31,11 @@ class Editor(QWidget, Ui_Form):
         self.Style3Btn.clicked.connect(self.style_3)
         self.Style4Btn.clicked.connect(self.style_4)
         self.Style5Btn.clicked.connect(self.style_5)
+        self.CutBtn.clicked.connect(self.cut)
+        self.PasteBtn.clicked.connect(self.paste)
+        self.UndoBtn.clicked.connect(self.undo)
+        self.TabBtn.clicked.connect(self.tab)
+        self.BackBtn.clicked.connect(self.back)
 
         self.Style1Btn.setText('冷却(D)')
         self.Style2Btn.setText('=1(1)')
@@ -45,6 +54,11 @@ class Editor(QWidget, Ui_Form):
         self.Style3Btn.setShortcut('2')
         self.Style4Btn.setShortcut('3')
         self.Style5Btn.setShortcut('0')
+        self.CutBtn.setShortcut('X')
+        self.PasteBtn.setShortcut('V')
+        self.UndoBtn.setShortcut('Z')
+        self.TabBtn.setShortcut('Tab')
+        self.BackBtn.setShortcut('Backspace')
 
     def set_top(self):
         self.is_top = not self.is_top
@@ -130,11 +144,12 @@ class Editor(QWidget, Ui_Form):
             line = self._read_select_line()
             if line == "": return
             if 'Cooldown' in line or 'ManaCost' in line or 'CastPoint' in line:
-                return self._modify_line_4()
-            if "value" in line:
-                return self._modify_line_1()
+                self._modify_line_4()
+            elif "value" in line:
+                self._modify_line_1()
             else:
-                return self._modify_line_2()
+                self._modify_line_2()
+            self.undo_board = line
         except Exception as e:
             self.Status.setText(f'转换失败：{e}')
 
@@ -143,9 +158,10 @@ class Editor(QWidget, Ui_Form):
             line = self._read_select_line()
             if line == "": return
             if "value" in line:
-                return self._modify_line_3()
+                self._modify_line_3()
             else:
-                return self._modify_line_4()
+                self._modify_line_4()
+            self.undo_board = line
         except Exception as e:
             self.Status.setText(f'转换失败：{e}')
 
@@ -154,21 +170,24 @@ class Editor(QWidget, Ui_Form):
             line = self._read_select_line()
             if line == "": return
             if "value" in line:
-                return self._modify_line_5('=1', '=1')
+                self._modify_line_5('=1', '=1')
             else:
-                return self._modify_line_6('=1', '=1')
+                self._modify_line_6('=1', '=1')
+            self.undo_board = line
         except Exception as e:
             self.Status.setText(f'转换失败：{e}')
 
     def style_3(self):
         try:
             self._modify_line_1()
+            self.undo_board = self._read_select_line()
         except Exception as e:
             self.Status.setText(f'转换失败：{e}')
 
     def style_4(self):
         try:
             self._modify_line_2()
+            self.undo_board = self._read_select_line()
         except Exception as e:
             self.Status.setText(f'转换失败：{e}')
 
@@ -177,11 +196,60 @@ class Editor(QWidget, Ui_Form):
             line = self._read_select_line()
             if line == "": return
             if "value" in line:
-                return self._modify_line_5('=0', '=0')
+                self._modify_line_5('=0', '=0')
             else:
-                return self._modify_line_6('=0', '=0')
+                self._modify_line_6('=0', '=0')
+            self.undo_board = line
         except Exception as e:
             self.Status.setText(f'转换失败：{e}')
+
+    def cut(self):
+        try:
+            line = self._read_select_line()
+            self.cut_board.append(line)
+            self._write_select_line('')
+            self.Status.setText(f'剪切：{len(self.cut_board)}')
+        except Exception as e:
+            self.Status.setText(f'剪切失败：{e}')
+
+    def paste(self):
+        try:
+            if len(self.cut_board) == 0: return
+            old_line = self._read_select_line()
+            all_line = ''
+            for line in self.cut_board:
+                all_line = all_line + line
+            new_line = old_line + all_line
+            self._write_select_line(new_line)
+            self.Status.setText(f'粘贴：{len(self.cut_board)}')
+            self.cut_board = []
+        except Exception as e:
+            self.Status.setText(f'粘贴失败：{e}')
+
+    def undo(self):
+        try:
+            if self.undo_board is None: return
+            self._write_select_line(self.undo_board)
+            self.Status.setText(f'撤回：{self.undo_board}')
+            self.undo_board = None
+        except Exception as e:
+            self.Status.setText(f'撤回失败：{e}')
+
+    def tab(self):
+        try:
+            line = self._read_select_line()
+            new_line = self._tab_lines(line)
+            self._write_select_line(new_line)
+        except Exception as e:
+            self.Status.setText(f'缩进失败：{e}')
+
+    def back(self):
+        try:
+            line = self._read_select_line()
+            new_line = self._back_lines(line)
+            self._write_select_line(new_line)
+        except Exception as e:
+            self.Status.setText(f'反缩进失败：{e}')
 
     def _read_select_line(self) -> str:
         model = self.Lv.model()
@@ -273,6 +341,18 @@ class Editor(QWidget, Ui_Form):
         end_line = tab + '}\n'
         new_line = name_line + head_line + value_line + sa_line + sp_line + end_line
         self._write_select_line(new_line)
+
+    @staticmethod
+    def _tab_lines(line) -> str:
+        lines = line.split('\n')
+        new_line = '\n'.join([f'\t{line}' for line in lines])
+        return new_line
+
+    @staticmethod
+    def _back_lines(line) -> str:
+        lines = line.split('\n')
+        new_line = '\n'.join([line[1:] for line in lines])
+        return new_line
 
 
 if __name__ == '__main__':
