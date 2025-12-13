@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QFileDialog
 from PyQt5.QtCore import QStringListModel, Qt
-
 from ui.editor2 import Ui_Form
 
 import os
@@ -118,6 +117,7 @@ class Editor(QWidget, Ui_Form):
         model = self.Lv.model()
         index = self.Lv.selectionModel().currentIndex()
         model.setData(index, line)
+
 
 if __name__ == '__main__':
     app = QApplication([])
