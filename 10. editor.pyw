@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QFileDialog
 from PyQt5.QtCore import QStringListModel, Qt
-from sympy import content
 
 from ui.editor2 import Ui_Form
 
