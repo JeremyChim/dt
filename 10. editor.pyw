@@ -1,5 +1,7 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QFileDialog
 from PyQt5.QtCore import QStringListModel, Qt
+from sympy import content
+
 from ui.editor2 import Ui_Form
 
 import os
@@ -107,6 +109,16 @@ class Editor(QWidget, Ui_Form):
         except Exception as e:
             self.Status.setText(f'打开失败：{e}')
 
+    def _read_select_line(self) -> str:
+        model = self.Lv.model()
+        index = self.Lv.selectionModel().currentIndex()
+        line = model.stringList()[index.row()]
+        return line
+
+    def _write_select_line(self, line: str):
+        model = self.Lv.model()
+        index = self.Lv.selectionModel().currentIndex()
+        model.setData(index, line)
 
 if __name__ == '__main__':
     app = QApplication([])
