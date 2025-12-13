@@ -219,7 +219,7 @@ class Editor(QWidget, Ui_Form):
             all_line = ''
             for line in self.cut_board:
                 all_line = all_line + line
-            new_line = old_line + all_line
+            new_line = old_line + self._tab_lines(all_line)
             self._write_select_line(new_line)
             self.Status.setText(f'粘贴：{len(self.cut_board)}')
             self.cut_board = []
@@ -351,7 +351,7 @@ class Editor(QWidget, Ui_Form):
     @staticmethod
     def _back_lines(line) -> str:
         lines = line.split('\n')
-        new_line = '\n'.join([line[1:] for line in lines])
+        new_line = '\n'.join([line[1:] if line.startswith('\t') else line for line in lines])
         return new_line
 
 
