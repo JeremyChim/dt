@@ -21,12 +21,30 @@ class Editor(QWidget, Ui_Form):
         self.SaveBtn.clicked.connect(self.save_file)
         self.SaveAsBtn.clicked.connect(self.save_as)
         self.OpenBtn.clicked.connect(self.open_file)
+        self.AutoBtn.clicked.connect(self.style_auto)
+        self.Style1Btn.clicked.connect(self.style_1)
+        self.Style2Btn.clicked.connect(self.style_2)
+        self.Style3Btn.clicked.connect(self.style_3)
+        self.Style4Btn.clicked.connect(self.style_4)
+        self.Style5Btn.clicked.connect(self.style_5)
+
+        self.Style1Btn.setText('冷却(D)')
+        self.Style2Btn.setText('=1(1)')
+        self.Style3Btn.setText('""(2)')
+        self.Style4Btn.setText('{}(3)')
+        self.Style5Btn.setText('=0(0)')
 
         self.LoadBtn.setShortcut('L')
         self.ReloadBtn.setShortcut('R')
         self.SaveBtn.setShortcut('S')
         self.SaveAsBtn.setShortcut('A')
         self.OpenBtn.setShortcut('O')
+        self.AutoBtn.setShortcut(' ')
+        self.Style1Btn.setShortcut('D')
+        self.Style2Btn.setShortcut('1')
+        self.Style3Btn.setShortcut('2')
+        self.Style4Btn.setShortcut('3')
+        self.Style5Btn.setShortcut('0')
 
     def set_top(self):
         self.is_top = not self.is_top
@@ -107,6 +125,64 @@ class Editor(QWidget, Ui_Form):
         except Exception as e:
             self.Status.setText(f'打开失败：{e}')
 
+    def style_auto(self):
+        try:
+            line = self._read_select_line()
+            if line == "": return
+            if 'Cooldown' in line or 'ManaCost' in line or 'CastPoint' in line:
+                return self._modify_line_4()
+            if "value" in line:
+                return self._modify_line_1()
+            else:
+                return self._modify_line_2()
+        except Exception as e:
+            self.Status.setText(f'转换失败：{e}')
+
+    def style_1(self):
+        try:
+            line = self._read_select_line()
+            if line == "": return
+            if "value" in line:
+                return self._modify_line_3()
+            else:
+                return self._modify_line_4()
+        except Exception as e:
+            self.Status.setText(f'转换失败：{e}')
+
+    def style_2(self):
+        try:
+            line = self._read_select_line()
+            if line == "": return
+            if "value" in line:
+                return self._modify_line_5('=1', '=1')
+            else:
+                return self._modify_line_6('=1', '=1')
+        except Exception as e:
+            self.Status.setText(f'转换失败：{e}')
+
+    def style_3(self):
+        try:
+            self._modify_line_1()
+        except Exception as e:
+            self.Status.setText(f'转换失败：{e}')
+
+    def style_4(self):
+        try:
+            self._modify_line_2()
+        except Exception as e:
+            self.Status.setText(f'转换失败：{e}')
+
+    def style_5(self):
+        try:
+            line = self._read_select_line()
+            if line == "": return
+            if "value" in line:
+                return self._modify_line_5('=0', '=0')
+            else:
+                return self._modify_line_6('=0', '=0')
+        except Exception as e:
+            self.Status.setText(f'转换失败：{e}')
+
     def _read_select_line(self) -> str:
         model = self.Lv.model()
         index = self.Lv.selectionModel().currentIndex()
@@ -118,9 +194,89 @@ class Editor(QWidget, Ui_Form):
         index = self.Lv.selectionModel().currentIndex()
         model.setData(index, line)
 
+    def _modify_line_1(self):
+        old_line = self._read_select_line()
+        old_split = old_line.split('"')
+        tab = old_split[0]
+        sa_val = self.SaLe.text()
+        sp_val = self.SpLe.text()
+        sa_line = f'{tab}"special_bonus_shard"\t\t"{sa_val}"\n'
+        sp_line = f'{tab}"special_bonus_scepter"\t\t"{sp_val}"\n'
+        new_line = old_line + sa_line + sp_line
+        self._write_select_line(new_line)
+
+    def _modify_line_2(self):
+        old_line = self._read_select_line()
+        old_split = old_line.split('"')
+        tab = old_split[0]
+        name = old_split[1]
+        value = old_split[3]
+        sa_val = self.SaLe.text()
+        sp_val = self.SpLe.text()
+        name_line = f'{tab}"{name}"\n'
+        head_line = tab + '{\n'
+        value_line = f'{tab}\t"value"\t\t\t\t\t\t"{value}"\n'
+        sa_line = f'{tab}\t"special_bonus_shard"\t\t"{sa_val}"\n'
+        sp_line = f'{tab}\t"special_bonus_scepter"\t\t"{sp_val}"\n'
+        end_line = tab + '}\n'
+        new_line = name_line + head_line + value_line + sa_line + sp_line + end_line
+        self._write_select_line(new_line)
+
+    def _modify_line_3(self):
+        old_line = self._read_select_line()
+        old_split = old_line.split('"')
+        tab = old_split[0]
+        sa_val = self.Sa2Le.text()
+        sp_val = self.Sp2Le.text()
+        sa_line = f'{tab}"special_bonus_shard"\t\t"{sa_val}"\n'
+        sp_line = f'{tab}"special_bonus_scepter"\t\t"{sp_val}"\n'
+        new_line = old_line + sa_line + sp_line
+        self._write_select_line(new_line)
+
+    def _modify_line_4(self):
+        old_line = self._read_select_line()
+        old_split = old_line.split('"')
+        tab = old_split[0]
+        name = old_split[1]
+        value = old_split[3]
+        sa_val = self.Sa2Le.text()
+        sp_val = self.Sp2Le.text()
+        name_line = f'{tab}"{name}"\n'
+        head_line = tab + '{\n'
+        value_line = f'{tab}\t"value"\t\t\t\t\t\t"{value}"\n'
+        sa_line = f'{tab}\t"special_bonus_shard"\t\t"{sa_val}"\n'
+        sp_line = f'{tab}\t"special_bonus_scepter"\t\t"{sp_val}"\n'
+        end_line = tab + '}\n'
+        new_line = name_line + head_line + value_line + sa_line + sp_line + end_line
+        self._write_select_line(new_line)
+
+    def _modify_line_5(self, sa_val, sp_val):
+        old_line = self._read_select_line()
+        old_split = old_line.split('"')
+        tab = old_split[0]
+        sa_line = f'{tab}"special_bonus_shard"\t\t"{sa_val}"\n'
+        sp_line = f'{tab}"special_bonus_scepter"\t\t"{sp_val}"\n'
+        new_line = old_line + sa_line + sp_line
+        self._write_select_line(new_line)
+
+    def _modify_line_6(self, sa_val, sp_val):
+        old_line = self._read_select_line()
+        old_split = old_line.split('"')
+        tab = old_split[0]
+        name = old_split[1]
+        value = old_split[3]
+        name_line = f'{tab}"{name}"\n'
+        head_line = tab + '{\n'
+        value_line = f'{tab}\t"value"\t\t\t\t\t\t"{value}"\n'
+        sa_line = f'{tab}\t"special_bonus_shard"\t\t"{sa_val}"\n'
+        sp_line = f'{tab}\t"special_bonus_scepter"\t\t"{sp_val}"\n'
+        end_line = tab + '}\n'
+        new_line = name_line + head_line + value_line + sa_line + sp_line + end_line
+        self._write_select_line(new_line)
+
 
 if __name__ == '__main__':
     app = QApplication([])
-    win = Editor('npc/heroes/npc_dota_hero_abaddon.txt')
+    win = Editor('npc/heroes/npc_dota_hero_axe.txt')
     win.show()
     app.exec()
