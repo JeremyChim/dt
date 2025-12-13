@@ -357,6 +357,6 @@ class Editor(QWidget, Ui_Form):
 
 if __name__ == '__main__':
     app = QApplication([])
-    win = Editor('npc/heroes/npc_dota_hero_axe.txt')
+    win = Editor()
     win.show()
     app.exec()
