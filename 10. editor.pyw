@@ -39,7 +39,7 @@ class Editor(QWidget, Ui_Form):
         self.Style1Btn.setText('冷却(D)')
         self.Style2Btn.setText('=1(1)')
         self.Style3Btn.setText('""(2)')
-        self.Style4Btn.setText('{}(3)')
+        self.Style4Btn.setText('天赋(3)')
         self.Style5Btn.setText('=0(0)')
 
         self.LoadBtn.setShortcut('L')
