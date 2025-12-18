@@ -178,15 +178,17 @@ class Editor(QWidget, Ui_Form):
 
     def style_3(self):
         try:
+            line = self._read_select_line()
             self._modify_line_1()
-            self.undo_board = self._read_select_line()
+            self.undo_board = line
         except Exception as e:
             self.Status.setText(f'转换失败：{e}')
 
     def style_4(self):
         try:
-            self._modify_line_2()
-            self.undo_board = self._read_select_line()
+            line = self._read_select_line()
+            self._modify_line_7()
+            self.undo_board = line
         except Exception as e:
             self.Status.setText(f'转换失败：{e}')
 
@@ -339,6 +341,23 @@ class Editor(QWidget, Ui_Form):
         sp_line = f'{tab}\t"special_bonus_scepter"\t\t"{sp_val}"\n'
         end_line = tab + '}\n'
         new_line = name_line + head_line + value_line + sa_line + sp_line + end_line
+        self._write_select_line(new_line)
+
+    def _modify_line_7(self):
+        old_line = self._read_select_line()
+        old_split = old_line.split('"')
+        tab = old_split[0]
+        name = old_split[1]
+        value = old_split[3]
+        if value == '1':
+            value2 = f'={value}'
+        else:
+            value2 = f'+{value}'
+        value_line = f'{tab}"value"\t\t\t\t\t\t"{value}"\n'
+        sa_line = f'{tab}"special_bonus_shard"\t\t"{value2}"\n'
+        sp_line = f'{tab}"special_bonus_scepter"\t\t"{value2}"\n'
+        old_line = f'{tab}"{name}"\t\t\t\t\t\t"{value2}"\n'
+        new_line = value_line + sa_line + sp_line + old_line
         self._write_select_line(new_line)
 
     @staticmethod
