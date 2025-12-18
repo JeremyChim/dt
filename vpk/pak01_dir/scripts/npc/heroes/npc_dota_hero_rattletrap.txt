@@ -328,8 +328,8 @@
 			"push_length"		
 			{
 				"value"						"300"
-				"special_bonus_shard"		"=150"
-				"special_bonus_scepter"		"=150"
+				"special_bonus_shard"		"=100"
+				"special_bonus_scepter"		"=100"
 			}
 			"push_duration"		
 			{
