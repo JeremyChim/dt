@@ -350,7 +350,10 @@ class Editor(QWidget, Ui_Form):
         name = old_split[1]
         value = old_split[3]
         if value == '1':
-            value2 = f'={value}'
+            value2 = '=1'
+        elif '=' in value:
+            value2 = value
+            value = value.replace('=','')
         else:
             value2 = f'+{value}'
         value_line = f'{tab}"value"\t\t\t\t\t\t"{value}"\n'
