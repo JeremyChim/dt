@@ -3,7 +3,8 @@ with open("npc/items.txt") as f:
 
 new_lines = []
 for i, line in enumerate(lines, 1):
-    if i == 6096:  # "ItemInitialStockTime"			"990.0"
+    # item_aghanims_shard
+    if i == 6109:  # "ItemInitialStockTime"			"990.0"
         line = line.replace("990.0", "0.0")
         print(i, line, end="")
     new_lines.append(line)
