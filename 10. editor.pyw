@@ -35,6 +35,10 @@ class Editor(QWidget, Ui_Form):
         self.UndoBtn.clicked.connect(self.undo)
         self.TabBtn.clicked.connect(self.tab)
         self.BackBtn.clicked.connect(self.back)
+        self.SaBtn.clicked.connect(self.sa_init)
+        self.SpBtn.clicked.connect(self.sp_init)
+        self.Sa2Btn.clicked.connect(self.sa2_init)
+        self.Sp2Btn.clicked.connect(self.sp2_init)
 
         self.Style1Btn.setText('冷却(D)')
         self.Style2Btn.setText('=1(1)')
@@ -251,6 +255,18 @@ class Editor(QWidget, Ui_Form):
             self._write_select_line(new_line)
         except Exception as e:
             self.Status.setText(f'反缩进失败：{e}')
+
+    def sa_init(self):
+        self.SaLe.setText('+25%')
+
+    def sp_init(self):
+        self.SpLe.setText('+50%')
+
+    def sa2_init(self):
+        self.Sa2Le.setText('-12.5%')
+
+    def sp2_init(self):
+        self.Sp2Le.setText('-25%')
 
     def _read_select_line(self) -> str:
         model = self.Lv.model()
