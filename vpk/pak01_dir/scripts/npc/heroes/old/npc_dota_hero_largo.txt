@@ -29,11 +29,9 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"2"
-		//"AbilityChargeRestoreTime"		"4 3.5 3"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		//"AbilityManaCost"				"8 12 16"
 		"AbilityManaCost"				"0"
  	
 		"AbilityValues"
@@ -41,6 +39,8 @@
 			"radius"
 			{
 				"value"						"750"
+				"special_bonus_shard"		"=1500"
+				"special_bonus_scepter"		"=1500"
 				"affected_by_aoe_increase"	"1"
 			}
 			"rhythm_interval"	"1"
@@ -48,12 +48,21 @@
 			"max_stacks"
 			{
 				"value"		"5"
+				"special_bonus_shard"		"+1"
+				"special_bonus_scepter"		"+2"
 			}
-			"armor_per_stack"				"2 3 4"
+			"armor_per_stack"
+			{
+				"value"						"2 3 4"
+				"special_bonus_shard"		"+1"
+				"special_bonus_scepter"		"+2"
+			}
 			"song_cost_reduction_per_stack_tooltip"	"1 1.5 2"
 			"stack_duration"
 			{
 				"value"		"5"
+				"special_bonus_shard"		"+1"
+				"special_bonus_scepter"		"+2"
 			}
 			"double_song"
 			{
@@ -67,15 +76,17 @@
 			}
 			"damage_per_stack"
 			{	
-				"value"		"0"
+				"value"		"1"
+				"special_bonus_shard"		"+10"
 				"special_bonus_scepter"		"+10 +15 +20"
 				"special_bonus_unique_largo_7" "+7" // because +% doesn't work here, precalculate it
 			}
 			"burst_damage"
 			{
-				"value"		"0"
+				"value"		"1"
+				"special_bonus_shard"		"+25"
 				"special_bonus_scepter"		"+50"
-				"special_bonus_unique_largo_7" "+14" // because +% doesn't work here, precalculate it
+				"special_bonus_unique_largo_7" "+17.5" // because +% doesn't work here, precalculate it
 			}
 			"stack_decrement_on_exit" "0"
 		}
@@ -119,26 +130,36 @@
 			"radius"
 			{
 				"value"						"750"
+				"special_bonus_shard"		"=1500"
+				"special_bonus_scepter"		"=1500"
 				"affected_by_aoe_increase"	"1"
 			}
 			"magic_damage_bonus"
 			{
 				"value"			"20 25 30"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
 				"special_bonus_unique_largo_7" "+35%"
 			}
 			"spell_amp_bonus"
 			{
 				"value"			"8 12 16"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
 				"special_bonus_unique_largo_7" "+35%"
 			}
 			"battle_burst_duration"
 			{
 				"value"		"1"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
 				//"special_bonus_shard"	"+0.5"
 			}
 			"AbilityManaCost"
 			{	
 				"value"			"20 32 44"
+				"special_bonus_shard"		"-12.5%"
+				"special_bonus_scepter"		"-25%"
 			}
 		}
 	}
@@ -180,28 +201,40 @@
 			"radius"
 			{
 				"value"						"750"
+				"special_bonus_shard"		"=1500"
+				"special_bonus_scepter"		"=1500"
 				"affected_by_aoe_increase"	"1"
 			}
 			"movespeed_bonus_burst"
 			{
 				"value"			"16 22 28"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
 				"special_bonus_unique_largo_7" "+35%"
 			}
 			"slow_resistance"
 			{
 				"value"			"70 80 90"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
 			}
 			"movement_burst_duration"
 			{
 				"value"		"1"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
 			}
 			"slow_resistance_burst_duration"
 			{
 				"value"		"0.3"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
 			}
 			"AbilityManaCost"
 			{	
 				"value"			"20 32 44"
+				"special_bonus_shard"		"-12.5%"
+				"special_bonus_scepter"		"-25%"
 			}
 		}
 	}
@@ -243,16 +276,22 @@
 			"radius"
 			{
 				"value"						"750"
+				"special_bonus_shard"		"=1500"
+				"special_bonus_scepter"		"=1500"
 				"affected_by_aoe_increase"	"1"
 			}
 			"heal_burst"
 			{
 				"value"			"34 56 78"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
 				"special_bonus_unique_largo_7" "+35%"
 			}
 			"AbilityManaCost"
 			{	
 				"value"			"20 32 44"
+				"special_bonus_shard"		"-12.5%"
+				"special_bonus_scepter"		"-25%"
 			}
 		}
 	}
@@ -270,48 +309,72 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_3"
-		"AbilityCastPoint"				"0.2"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"85 95 105 115"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCooldown"
+			"AbilityCastPoint"
+			{
+				"value"						"0.2"
+				"special_bonus_shard"		"-12.5%"
+				"special_bonus_scepter"		"-25%"
+			}
+			"AbilityManaCost"
+			{
+				"value"						"85 95 105 115"
+				"special_bonus_shard"		"-12.5%"
+				"special_bonus_scepter"		"-25%"
+			}
+				"AbilityCooldown"
 			{
 				"value"					"20 18 16 14"
+				"special_bonus_shard"		"-12.5%"
+				"special_bonus_scepter"		"-25%"
 			}
 			"damage_per_stomp"
 			{
 				"value"					"35 45 55 65"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
 				"special_bonus_unique_largo_1"	"+15"
 			}
 			"total_ticks"
 			{
 				"value"					"4 5 6 7"
+				"special_bonus_shard"		"+2"
+				"special_bonus_scepter"		"+4"
 			}
 			"slow"
 			{
 				"value"					"12 18 24 30"
+				"special_bonus_shard"		"=100"
+				"special_bonus_scepter"		"=100"
 			}
 			"radius"	
 			{
 				"value"					"350"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
 				"affected_by_aoe_increase"	"1"
 			}
 			"AbilityCastRange"
 			{
 				"value"					"800"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
 			}
 			"stun_duration"
 			{
 				"value"			"0.1"
+				"special_bonus_shard"		"+0.1"
+				"special_bonus_scepter"		"+0.2"
 			}
 			"stomp_interval"			"1"
 			"delay"						"0.5"
@@ -334,30 +397,45 @@
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"800"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
 		"AbilityCastGestureSlot"		"DEFAULT"
-		"AbilityCastPoint"				"0.2"
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"25 35 45 55"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCastRange"
+			{
+				"value"						"800"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
+			}
+			"AbilityCastPoint"
+			{
+				"value"						"0.2"
+				"special_bonus_shard"		"-12.5%"
+				"special_bonus_scepter"		"-25%"
+			}
+			"AbilityManaCost"
+			{
+				"value"						"25 35 45 55"
+				"special_bonus_shard"		"-12.5%"
+				"special_bonus_scepter"		"-25%"
+			}
 			"damage_per_second"
 			{
 				"value"					"0"
-				//"value"					"8 12 16 20"
 			}
 			"damage_portion_pct"
 			{
 				"value"					"30 35 40 45"
-				//"value"					"0"
+				"special_bonus_shard"		"=100"
+				"special_bonus_scepter"		"=100"
 			}
 			"damage_duration"
 			{
@@ -366,29 +444,39 @@
 			"damage_hp_pct"
 			{
 				"value"					"0"
-				"special_bonus_unique_largo_3"	"=1.5"
+				"special_bonus_shard"		"+1"
+				"special_bonus_scepter"		"+2"
+				"special_bonus_unique_largo_3"	"+1.5"
 			}
 			"mana_cost_reduction"
 			{
 				"value"					"15"
+				"special_bonus_shard"		"=50"
+				"special_bonus_scepter"		"=50"
 			}
 			"slow"
 			{
 				"value"					"0"
 			}
 			"damage_threshold"			"0"
-			"duration"					"12 18 24 30"
+			"duration"
+			{
+				"value"						"12 18 24 30"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
+			}
 			"duration_reduction"		"0.5"
 			"AbilityCooldown"
 			{
 				"value"					"25"
+				"special_bonus_shard"		"-12.5%"
+				"special_bonus_scepter"		"-25%"
 			}
 			"AbilityCharges"
 			{
 				"value"						"0"
 				//"special_bonus_unique_largo_3"	"=2"
 			}
-			"max_distance"		"2000"
 		}
 	}
 
@@ -408,38 +496,61 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
-		"AbilityCastPoint"				"0.2"
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"			"13 11 9 7"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"80 85 90 95"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCastRange"				
+			"AbilityCastPoint"
+			{
+				"value"						"0.2"
+				"special_bonus_shard"		"-12.5%"
+				"special_bonus_scepter"		"-25%"
+			}
+			"AbilityCooldown"
+			{
+				"value"						"13 11 9 7"
+				"special_bonus_shard"		"-12.5%"
+				"special_bonus_scepter"		"-25%"
+			}
+			"AbilityManaCost"
+			{
+				"value"						"80 85 90 95"
+				"special_bonus_shard"		"-12.5%"
+				"special_bonus_scepter"		"-25%"
+			}
+				"AbilityCastRange"				
 			{
 				"value"		"700"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
 				"special_bonus_unique_largo_4"	"+100"
 			}
 			"damage"
 			{
 				"value"		"85 170 255 340"
-				"special_bonus_unique_largo_5"	"+170"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
+				"special_bonus_unique_largo_5"	"+140"
 			}
 			"pull_distance"		
 			{
-				"value"			"235 265 295 325"
+				"value"			"210 240 270 300"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
 				"special_bonus_unique_largo_4"	"+50"
 			}
 			"pull_distance_ally"		
 			{
 				"value"			"375"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
 				"special_bonus_unique_largo_4"	"+50"
 			}
 			"pull_duration"		"0.3"
@@ -448,10 +559,17 @@
 			}
 			"dispel_hp_regen"
 			{
-				"value"			"4 7 10 13"
+				"value"			"4 6 8 10"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
 				"special_bonus_unique_largo_2"	"x2.5"
 			}
-			"buff_duration"		"10"
+			"buff_duration"
+			{
+				"value"						"10"
+				"special_bonus_shard"		"+25%"
+				"special_bonus_scepter"		"+50%"
+			}
 			"AbilityCharges"
 			{
 				"value"						"0"
