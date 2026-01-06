@@ -78,7 +78,7 @@
 			}
 			"pct_damage"
 			{
-				"value"										"0"
+				"value"										"1"
 				"special_bonus_shard"		"+250"
 				"special_bonus_scepter"		"+500"
 				"special_bonus_facet_morphling_agi"			"+50"
