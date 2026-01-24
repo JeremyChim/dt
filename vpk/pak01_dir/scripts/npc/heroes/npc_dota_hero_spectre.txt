@@ -148,8 +148,8 @@
 			"bonus_damage"
 			{
 				"value"									"25"
-				"special_bonus_shard"		"+25%"
-				"special_bonus_scepter"		"+50%"
+				"special_bonus_shard"		"+25"
+				"special_bonus_scepter"		"+50"
 				"hero_levelup"							"+2"
 				"special_bonus_unique_spectre_2"		"+12"
 			}
