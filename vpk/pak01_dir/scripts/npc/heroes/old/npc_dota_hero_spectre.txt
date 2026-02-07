@@ -19,6 +19,7 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -34,79 +35,73 @@
 			"AbilityCastRange"
 			{
 				"value"						"1800"
-				"special_bonus_shard"		"+25%"
-				"special_bonus_scepter"		"+50%"
-			}
-			"AbilityCastPoint"
-			{
-				"value"						"0.3 0.3 0.3 0.3"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
+				"special_bonus_shard"		"+100%"
+				"special_bonus_scepter"		"+100%"
 			}
 			"AbilityManaCost"
 			{
 				"value"						"100 110 120 130"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
+				"special_bonus_shard"		"-50%"
+				"special_bonus_scepter"		"-50%"
 			}
 					"damage"				
 				{
 					"value"			"70 120 170 220"
-					"special_bonus_shard"		"+25%"
-					"special_bonus_scepter"		"+50%"
+					"special_bonus_shard"		"+100%"
+					"special_bonus_scepter"		"+100%"
 					"special_bonus_unique_spectre_6" "+80"
 				}
 				"bonus_movespeed"		
 				{
 					"value"			"10 14 18 22"
-					"special_bonus_shard"		"+25%"
-					"special_bonus_scepter"		"+50%"
+					"special_bonus_shard"		"+100%"
+					"special_bonus_scepter"		"+100%"
 					"special_bonus_unique_spectre_3"  	"+15"
 				}
 				"dagger_path_duration"
 				{
 					"value"						"12.0"
-					"special_bonus_shard"		"+25%"
-					"special_bonus_scepter"		"+50%"
+					"special_bonus_shard"		"+100%"
+					"special_bonus_scepter"		"+100%"
 				}
 				"hero_path_duration"
 				{
 					"value"						"7.0"
-					"special_bonus_shard"		"+25%"
-					"special_bonus_scepter"		"+50%"
+					"special_bonus_shard"		"+100%"
+					"special_bonus_scepter"		"+100%"
 				}
 				"buff_persistence"
 				{
 					"value"						"4.0"
-					"special_bonus_shard"		"+25%"
-					"special_bonus_scepter"		"+50%"
+					"special_bonus_shard"		"+100%"
+					"special_bonus_scepter"		"+100%"
 				}
 				"dagger_radius"			
 				{
 					"value"			"125"
-					"special_bonus_shard"		"+25%"
-					"special_bonus_scepter"		"+50%"
+					"special_bonus_shard"		"+100%"
+					"special_bonus_scepter"		"+100%"
 					"affected_by_aoe_increase"	"1"
 				}
 				"path_radius"			
 				{
 					"value"	"175"
-					"special_bonus_shard"		"+25%"
-					"special_bonus_scepter"		"+50%"
+					"special_bonus_shard"		"+100%"
+					"special_bonus_scepter"		"+100%"
 					"affected_by_aoe_increase"	"1"
 				}
 				"vision_radius"			
 				{
 					"value"			"200"
-					"special_bonus_shard"		"+25%"
-					"special_bonus_scepter"		"+50%"
+					"special_bonus_shard"		"+100%"
+					"special_bonus_scepter"		"+100%"
 					"affected_by_aoe_increase"	"1"
 				}
 				"speed"
 				{
 					"value"						"800"
-					"special_bonus_shard"		"+25%"
-					"special_bonus_scepter"		"+50%"
+					"special_bonus_shard"		"+100%"
+					"special_bonus_scepter"		"+100%"
 				}
 				"dagger_grace_period"	"1.0"
 				"applies_desolate"
@@ -116,8 +111,8 @@
 				"AbilityCooldown"
 				{
 					"value"				"22 20 18 16"
-					"special_bonus_shard"		"-12.5%"
-					"special_bonus_scepter"		"-25%"
+					"special_bonus_shard"		"-50%"
+					"special_bonus_scepter"		"-50%"
 					"special_bonus_unique_spectre" "-4"
 				}
 		}
@@ -148,8 +143,8 @@
 			"bonus_damage"
 			{
 				"value"									"25"
-				"special_bonus_shard"		"+25"
-				"special_bonus_scepter"		"+50"
+				"special_bonus_shard"		"+100%"
+				"special_bonus_scepter"		"+100%"
 				"hero_levelup"							"+2"
 				"special_bonus_unique_spectre_2"		"+12"
 			}
@@ -162,7 +157,7 @@
 			
 			"illusion_damage_outgoing"
 			{
-				"special_bonus_unique_spectre_4"	"+20"	//Note: This is adjusting all outgoing illusion damage that have the Desolate ability 
+				"special_bonus_unique_spectre_4"	"+15"	//Note: This is adjusting all outgoing illusion damage that have the Desolate ability 
 	
 			}
 
@@ -191,22 +186,22 @@
 			"damage_reflection_pct"
 			{
 				"value"		"8 12 16 20"
-				"special_bonus_shard"		"+25%"
-				"special_bonus_scepter"		"+50%"
+				"special_bonus_shard"		"+100%"
+				"special_bonus_scepter"		"+100%"
 				"special_bonus_unique_spectre_5"		"+5"
 			}
 			"min_radius"			
 			{
 				"value"		"350"
-				"special_bonus_shard"		"+25%"
-				"special_bonus_scepter"		"+50%"
+				"special_bonus_shard"		"+100%"
+				"special_bonus_scepter"		"+100%"
 				"affected_by_aoe_increase"	"1"
 			}
 			"max_radius"			
 			{
 				"value"		"800"
-				"special_bonus_shard"		"+25%"
-				"special_bonus_scepter"		"+50%"
+				"special_bonus_shard"		"+100%"
+				"special_bonus_scepter"		"+100%"
 				"affected_by_aoe_increase"	"1"
 			}
 			"activation_cooldown"
@@ -254,7 +249,7 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		
+		"AbilityCastPoint"				"0.3"
 		"AbilityCastAnimation"			"ACT_DOTA_OVERRIDE_ABILITY_4"
 
 		// Time		
@@ -268,54 +263,49 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCastPoint"
-			{
-				"value"						"0.3"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
-			}
 			"AbilityManaCost"
 			{
 				"value"						"125 150 175"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
+				"special_bonus_shard"		"-50%"
+				"special_bonus_scepter"		"-50%"
 			}
-			"AbilityCooldown"				
+				"AbilityCooldown"				
 			{
-				"value"						"180 160 140"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-20"
+				"value"											"180 160 140"
+				"special_bonus_shard"		"-50%"
+				"special_bonus_scepter"		"-50%"
+				"special_bonus_scepter"							"-20"
 			}
 			"scepter_cooldown_reduction_tooltip"				"20"
 			"duration"
 			{
 				"value"						"5.0 6.0 7.0"
-				"special_bonus_shard"		"+25%"
-				"special_bonus_scepter"		"+50%"
+				"special_bonus_shard"		"+100%"
+				"special_bonus_scepter"		"+100%"
 			}
 			"illusion_damage_outgoing"
 			{
 				"value"					"-70 -45 -20"
-				"special_bonus_shard"		"+25"
-				"special_bonus_scepter"		"+50"
+				"special_bonus_shard"		"+100"
+				"special_bonus_scepter"		"+100"
 			}
 			"tooltip_outgoing"			
 			{
 				"value"				"30 55 80"
-				"special_bonus_shard"		"+25"
-				"special_bonus_scepter"		"+50"
+				"special_bonus_shard"		"+100"
+				"special_bonus_scepter"		"+100"
 			}
 			"illusion_damage_incoming"
 			{
 				"value"						"100 100 100"
-				"special_bonus_shard"		"-100"
-				"special_bonus_scepter"		"-100"
+				"special_bonus_shard"		"-50"
+				"special_bonus_scepter"		"-50"
 			}
 			"tooltip_illusion_total_damage_incoming"
 			{
 				"value"					"200 200 200"
-				"special_bonus_shard"		"-100"
-				"special_bonus_scepter"		"-100"
+				"special_bonus_shard"		"-50"
+				"special_bonus_scepter"		"-50"
 
 				// "damage" in attribute name but it's a percentage-based effect
 				"CalculateSpellDamageTooltip"	"0"
@@ -363,6 +353,7 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.3"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 
 		//-------------------------------------------------------------------------------------------------------------
@@ -376,25 +367,19 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCastPoint"
-			{
-				"value"						"0.3"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
-			}
 			"AbilityCooldown"
 			{
 				"value"						"30 26 22 18"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
+				"special_bonus_shard"		"-50%"
+				"special_bonus_scepter"		"-50%"
 			}
 			"AbilityManaCost"
 			{
 				"value"						"60 65 70 75"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
+				"special_bonus_shard"		"-50%"
+				"special_bonus_scepter"		"-50%"
 			}
-			"AbilityCastRange"				
+				"AbilityCastRange"				
 			{
 				"value"					"750 900 1050 1200"
 				"special_bonus_shard"		"=99999"
@@ -403,22 +388,21 @@
 			"duration"					
 			{
 				"value"							"3.5 4.0 4.5 5.0"
-				"special_bonus_shard"		"+25%"
-				"special_bonus_scepter"		"+50%"
+				"special_bonus_shard"		"+100%"
+				"special_bonus_scepter"		"+100%"
 				"special_bonus_unique_spectre_shadow_step_duration"	"+1.0"
 			}	
 			"illusion_damage_incoming"
 			{
 				"value"						"100"
-				"special_bonus_shard"		"-100"
-				"special_bonus_scepter"		"-100"
+				"special_bonus_shard"		"-50"
+				"special_bonus_scepter"		"-50"
 			}
 			"tooltip_illusion_total_damage_incoming"
 			{
 				"value"					"200"
-				"special_bonus_shard"		"-100"
-				"special_bonus_scepter"		"-100"
-
+				"special_bonus_shard"		"-50"
+				"special_bonus_scepter"		"-50"
 				// "damage" in attribute name but it's a percentage-based effect
 				"CalculateSpellDamageTooltip"	"0"
 				"DamageTypeTooltip"	"DAMAGE_TYPE_NONE"
@@ -426,8 +410,8 @@
 			"illusion_outgoing_damage"	
 			{
 				"value" 							"32 38 44 50"
-				"special_bonus_shard"		"+25"
-				"special_bonus_scepter"		"+50"
+				"special_bonus_shard"		"+100%"
+				"special_bonus_scepter"		"+100%"
 				"CalculateSpellDamageTooltip"		"0"
 				"DamageTypeTooltip"					"DAMAGE_TYPE_PHYSICAL"
 			}

@@ -17,6 +17,7 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.25"
  		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
 
 		// Time		
@@ -33,29 +34,23 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCastPoint"
-			{
-				"value"						"0.25"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
-			}
 			"AbilityManaCost"
 			{
 				"value"						"115"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
+				"special_bonus_shard"		"-50%"
+				"special_bonus_scepter"		"-50%"
 			}
 				"speed"
 			{
 				"value"						"1250"
-				"special_bonus_shard"		"+25%"
-				"special_bonus_scepter"		"+50%"
+				"special_bonus_shard"		"+100%"
+				"special_bonus_scepter"		"+100%"
 			}
 			"width"					
 			{
 				"value"				"200"
-				"special_bonus_shard"		"+25%"
-				"special_bonus_scepter"		"+50%"
+				"special_bonus_shard"		"+100%"
+				"special_bonus_scepter"		"+100%"
 				"affected_by_aoe_increase"	"1"
 			}
 			"AbilityCharges"		
@@ -65,33 +60,29 @@
 			"AbilityCastRange"
 			{
 				"value"				"700 800 900 1000"
-				"special_bonus_shard"		"+25%"
-				"special_bonus_scepter"		"+50%"
+				"special_bonus_shard"		"+100%"
+				"special_bonus_scepter"		"+100%"
 				"special_bonus_unique_morphling_1"	"+250"
 			}			
 			"AbilityCooldown"
 			{
 				"value"														"21 18 15 12"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
+				"special_bonus_shard"		"-50%"
+				"special_bonus_scepter"		"-50%"
 				"special_bonus_unique_morphling_waveform_cooldown"			"-40%"
 			}
 			"pct_damage"
 			{
-				"value"										"1"
-				"special_bonus_shard"		"+250"
-				"special_bonus_scepter"		"+500"
+				"value"										"100"
+				"special_bonus_shard"		"+100%"
+				"special_bonus_scepter"		"+100%"
 				"special_bonus_facet_morphling_agi"			"+50"
-				"special_bonus_unique_morphling_4"			"+75"
 				"CalculateSpellDamageTooltip"				"0"
 				"DamageTypeTooltip"							"DAMAGE_TYPE_PHYSICAL"
 			}
 			"process_procs"
 			{
-				"value" "0"
-				"special_bonus_shard"		"=1"
-				"special_bonus_scepter"		"=1"
-				"special_bonus_unique_morphling_4"			"+1"
+				"value" "1"
 			}
 		}
 	}
@@ -114,6 +105,7 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.25"
  		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
 
 		// Time		
@@ -132,63 +124,55 @@
 			"AbilityCastRange"
 			{
 				"value"						"600 675 750 825"
-				"special_bonus_shard"		"+25%"
-				"special_bonus_scepter"		"+50%"
-			}
-			"AbilityCastPoint"
-			{
-				"value"						"0.25"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
+				"special_bonus_shard"		"+100%"
+				"special_bonus_scepter"		"+100%"
 			}
 			"AbilityManaCost"
 			{
 				"value"						"40 50 60 70"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
+				"special_bonus_shard"		"-50%"
+				"special_bonus_scepter"		"-50%"
 			}
 					
 				"AbilityCooldown"
 				{
 					"value"								"17 14 11 8"
-					"special_bonus_shard"		"-12.5%"
-					"special_bonus_scepter"		"-25%"
+					"special_bonus_shard"		"-50%"
+					"special_bonus_scepter"		"-50%"
 					"special_bonus_unique_morphling_7"	"-3"
 				}
 				"damage_base"								
 				{
 					"value"								"25 50 75 100"
-					"special_bonus_shard"		"+250"
-					"special_bonus_scepter"		"+500"
+					"special_bonus_shard"		"+100%"
+					"special_bonus_scepter"		"+100%"
 					"CalculateSpellDamageTooltip"		"1"
 				}
 				"damage_min"					
 				{
 					"value"								"0.5"
-					"special_bonus_shard"		"+2.5"
-					"special_bonus_scepter"		"+5.0"
+					"special_bonus_shard"		"+100%"
+					"special_bonus_scepter"		"+100%"
 					"CalculateSpellDamageTooltip"		"0"
 				}
 				"damage_max"					
 				{
 					"value"								"1.0 1.5 2.0 2.5"
-					"special_bonus_shard"		"+2.5"
-					"special_bonus_scepter"		"+5.0"
+					"special_bonus_shard"		"+100%"
+					"special_bonus_scepter"		"+100%"
 					"CalculateSpellDamageTooltip"		"0"
 				}
 				"stun_min"						
 				{
 					"value"								"0.5"
-					"special_bonus_shard"		"+2.5"
-					"special_bonus_scepter"		"+5.0"
-					//"special_bonus_facet_morphling_str"	"0.5"
+					"special_bonus_shard"		"+100%"
+					"special_bonus_scepter"		"+100%"
 				}
 				"stun_max"						
 				{
 					"value"								"2.4"
-					"special_bonus_shard"		"+2.5"
-					"special_bonus_scepter"		"+5.0"
-					//"special_bonus_facet_morphling_str"	"2.4"
+					"special_bonus_shard"		"+100%"
+					"special_bonus_scepter"		"+100%"
 				}
 				"knockback_min"					
 				{
@@ -205,14 +189,14 @@
 				"projectile_speed"
 				{
 					"value"						"1150"
-					"special_bonus_shard"		"+25%"
-					"special_bonus_scepter"		"+50%"
+					"special_bonus_shard"		"+100%"
+					"special_bonus_scepter"		"+100%"
 				}
 				"extra_targets"
 				{
 					"value"								"0"					
-					"special_bonus_shard"		"=1"
-					"special_bonus_scepter"		"=1"
+					"special_bonus_shard"		"+1"
+					"special_bonus_scepter"		"+1"
 				}
 		}
 	}
@@ -339,12 +323,7 @@
 
 		"AbilityValues"
 		{
-			"agi_per_one_spell_amp"
-			{
-				"value"						"4"
-				"special_bonus_shard"		"=1"
-				"special_bonus_scepter"		"=1"
-			}
+			"agi_per_one_spell_amp"			"4"
 			"one_percent_tooltip"			"1"
 			"spell_amp_tooltip"
 			{
@@ -372,6 +351,7 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.25"
  		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_6"
 
 		// Time		
@@ -390,32 +370,26 @@
 				"special_bonus_shard"		"=99999"
 				"special_bonus_scepter"		"=99999"
 			}
-			"AbilityCastPoint"
-			{
-				"value"						"0.25"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
-			}
 			"AbilityCooldown"
 			{
 				"value"						"140 100 60"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
+				"special_bonus_shard"		"-50%"
+				"special_bonus_scepter"		"-50%"
 			}
 			"AbilityManaCost"
 			{
 				"value"						"50"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
+				"special_bonus_shard"		"-50%"
+				"special_bonus_scepter"		"-50%"
 			}
-				"duration"
+			"duration"
 			{
 				"value"								"24"
-				"special_bonus_shard"		"+25%"
-				"special_bonus_scepter"		"+50%"
+				"special_bonus_shard"		"+100%"
+				"special_bonus_scepter"		"+100%"
 				"special_bonus_unique_morphling_8" "+12"
 			}
-            "scepter_stat_steal"
+		            "scepter_stat_steal"
 			{
 				"special_bonus_scepter"						"20"
 			}
@@ -487,39 +461,19 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"600"
+		"AbilityCastPoint"				"0.25"
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"60"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"200"
 		"AbilityValues"
 		{
-			"AbilityCastRange"
-			{
-				"value"						"600"
-				"special_bonus_shard"		"=99999"
-				"special_bonus_scepter"		"=99999"
-			}
-			"AbilityCastPoint"
-			{
-				"value"						"0.25"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
-			}
-			"AbilityCooldown"
-			{
-				"value"						"60"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
-			}
-			"AbilityManaCost"
-			{
-				"value"						"200"
-				"special_bonus_shard"		"-12.5%"
-				"special_bonus_scepter"		"-25%"
-			}
-				"illusion_damage_out_pct"
+			"illusion_damage_out_pct"
 			{
 				"value" "-50 -50 -50"
 				"CalculateSpellDamageTooltip" "0"
@@ -562,24 +516,9 @@
 
 		"AbilityValues"
 		{
-			"percent_to_increment"
-			{
-				"value"						"50.0"
-				"special_bonus_shard"		"=100.0"
-				"special_bonus_scepter"		"=100.0"
-			}
-			"bonus_primary_stat_per_level_of_attributes"
-			{
-				"value"						"3"
-				"special_bonus_shard"		"=6"
-				"special_bonus_scepter"		"=6"
-			}
-			"bonus_int_per_level_of_attributes"
-			{
-				"value"						"0"
-				"special_bonus_shard"		"=2"
-				"special_bonus_scepter"		"=2"
-			}
+			"percent_to_increment"							"50.0"
+			"bonus_primary_stat_per_level_of_attributes"	"3"
+			"bonus_int_per_level_of_attributes"				"0"
 		}
 	}
 }
