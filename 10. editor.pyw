@@ -18,6 +18,11 @@ class Editor(QWidget, Ui_Form):
         self.reload_file()
 
     def init(self):
+        self.sa_init()
+        self.sp_init()
+        self.sa2_init()
+        self.sp2_init()
+
         self.TopBtn.clicked.connect(self.set_top)
         self.LoadBtn.clicked.connect(self.load_file)
         self.ReloadBtn.clicked.connect(self.reload_file)
@@ -257,16 +262,16 @@ class Editor(QWidget, Ui_Form):
             self.Status.setText(f'反缩进失败：{e}')
 
     def sa_init(self):
-        self.SaLe.setText('+100%')
+        self.SaLe.setText('+50%')
 
     def sp_init(self):
-        self.SpLe.setText('+100%')
+        self.SpLe.setText('+50%')
 
     def sa2_init(self):
-        self.Sa2Le.setText('-50%')
+        self.Sa2Le.setText('-25%')
 
     def sp2_init(self):
-        self.Sp2Le.setText('-50%')
+        self.Sp2Le.setText('-25%')
 
     def _read_select_line(self) -> str:
         model = self.Lv.model()
