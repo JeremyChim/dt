@@ -1,0 +1,1 @@
+OnEntityKilled.lua 的 204行，改成return 30000
