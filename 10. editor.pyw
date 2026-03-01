@@ -262,16 +262,16 @@ class Editor(QWidget, Ui_Form):
             self.Status.setText(f'反缩进失败：{e}')
 
     def sa_init(self):
-        self.SaLe.setText('+50%')
+        self.SaLe.setText('+100%')
 
     def sp_init(self):
-        self.SpLe.setText('+50%')
+        self.SpLe.setText('+100%')
 
     def sa2_init(self):
-        self.Sa2Le.setText('-25%')
+        self.Sa2Le.setText('-50%')
 
     def sp2_init(self):
-        self.Sp2Le.setText('-25%')
+        self.Sp2Le.setText('-50%')
 
     def _read_select_line(self) -> str:
         model = self.Lv.model()
